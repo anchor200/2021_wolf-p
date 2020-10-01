@@ -9,7 +9,7 @@ trial=”実験ID”
 member=”人物”
 人物はA, B, Cで指定
 
-例
+例<br>
 http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=0&member=A
 http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=0&member=B
 http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=0&member=C
