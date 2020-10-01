@@ -23,7 +23,8 @@ http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=0&mem
 ## 実験の作成方法
 サーバーにwarihuri.csvをアップロードする。現在テスト用は以下のファイル。
 http://roboquestion.s3.coreserver.jp/jinro/warihuri.csv
-
+<br>
+<img width="457" alt="スクリーンショット 2020-10-02 2 11 00" src="https://user-images.githubusercontent.com/32958889/94841239-afe95300-0454-11eb-95a3-714ff59eed5d.png">
 
 
 ## 実験ごとのログ
