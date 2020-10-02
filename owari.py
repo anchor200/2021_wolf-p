@@ -6,11 +6,12 @@ import sys
 import io
 import cgi
 import csv
+import datetime
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
 
-dt_now = datetime.now()
+dt_now = datetime.datetime.now()
 
 presentation = u"""
 <html>
@@ -84,11 +85,11 @@ with open("warihuri.csv") as f:
             Cwari = wari(row[4])
 
 
-with open("./log/backup/" + path.split("./log/")[1].split(".")[0] + ".txt") as f:
-    f.write(s)
+with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
+    f.write("|" + s + "|")
 
 sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
 sys.stdout.write(presentation % (Atou, Btou, Ctou, Awari, Bwari, Cwari, str(int(exp_num) + 1), memid, form.getvalue('Keika', '')))
-
-
+#sys.stdout.write(presentation)
+#sys.stdout.write(s + path)
 

@@ -6,11 +6,12 @@ import sys
 import io
 import cgi
 import csv
+import datetime
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
 
-dt_now = datetime.now()
+dt_now = datetime.datetime.now()
 
 presentation_SomeJinro = u"""
 <html>
@@ -217,6 +218,8 @@ Bさんは%sです。<br>
 Cさんは%sです。<br><br>
 
 
+<a href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=%s&member=%s">次の実験へ進む</a>
+
 <br><br>
 <strong>このページは閉じないでください。</strong>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
@@ -249,16 +252,18 @@ if "Tohyo2:A:inai" in s and "Tohyo2:B:inai" in s and "Tohyo2:C:inai" in s:
     Bwari = ""
     Cwari = ""
     with open("warihuri.csv") as f:
+        exp_num = ""
         for row in csv.reader(f):
             if row[0] + row[1] == path.split("./log/")[1].split(".")[0]:
+                exp_num = row[1]
                 Awari = wari(row[2])
                 Bwari = wari(row[3])
                 Cwari = wari(row[4])
 
-    with open("./log/backup/" + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
+    with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
         f.write("|" + s + "|")
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-    sys.stdout.write(presentation % (Awari, Bwari, Cwari, form.getvalue('Keika', '')))
+    sys.stdout.write(presentation % (Awari, Bwari, Cwari, str(int(exp_num) + 1), memid, form.getvalue('Keika', '')))
 elif ("Tohyo3:A" in s and memid == "A") or ("Tohyo3:B" in s and memid == "B") or ("Tohyo3:C" in s and memid == "C"):
     presentation = presentation_uketsuketa
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
