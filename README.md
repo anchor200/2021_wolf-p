@@ -22,13 +22,13 @@ http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=0&mem
 
 ## 実験の作成方法
 サーバーにwarihuri.csvをアップロードする。現在テスト用は以下のファイル。
-http://roboquestion.s3.coreserver.jp/jinro/log/warihuri.csv
+http://roboquestion.s3.coreserver.jp/jinro/warihuri.csv
 <br>
 <img width="457" alt="スクリーンショット 2020-10-02 2 11 00" src="https://user-images.githubusercontent.com/32958889/94841239-afe95300-0454-11eb-95a3-714ff59eed5d.png">
 
 
 ## 実験ごとのログ
-http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
+http://roboquestion.s3.coreserver.jp/jinro/log/testroom0.txt
 <br>jinro/以下は、[グループID][実験ID].txt
 
 このファイルをダウンロードすると、被験者が選んだ選択肢がわかる (データ分析用)
