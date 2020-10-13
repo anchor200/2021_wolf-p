@@ -34,7 +34,6 @@ http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
 実験が終わったとのログの例<br>
 last cleared 2020-10-12T13:39:17.881901A:0B:0C:0X:0X:0C:0A:0B:0C:1B:1A:1X:1owattaA:0B:0C:0X:0A:0A:0B:0C:0@Tohyo2:B:inai@Tohyo2:A:inai@Tohyo2:C:inai@Tohyo2:X:inaiX:4C:4B:4A:4
 
-見方
 <img width="961" alt="スクリーンショット 2020-10-13 9 13 20" src="https://user-images.githubusercontent.com/32958889/95801239-b0c39400-0d34-11eb-9e14-e19271650582.png">
 
 
