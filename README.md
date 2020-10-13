@@ -26,6 +26,9 @@ http://roboquestion.s3.coreserver.jp/jinro/warihuri.csv
 <br>
 <img width="457" alt="スクリーンショット 2020-10-02 2 11 00" src="https://user-images.githubusercontent.com/32958889/94841239-afe95300-0454-11eb-95a3-714ff59eed5d.png">
 
+<br>
+<strong>注意： 全員のリンクが同じroomになっているかを確認すること！</strong>
+
 
 ## 実験ごとのログ
 http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
