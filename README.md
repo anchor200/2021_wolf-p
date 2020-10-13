@@ -30,6 +30,16 @@ http://roboquestion.s3.coreserver.jp/jinro/warihuri.csv
 ## 実験ごとのログ
 http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
 <br>jinro/以下は、[グループID][実験ID].txt
+### 実験中のログの見方
+実験が終わったとのログの例<br>
+last cleared 2020-10-12T13:39:17.881901A:0B:0C:0X:0X:0C:0A:0B:0C:1B:1A:1X:1owattaA:0B:0C:0X:0A:0A:0B:0C:0@Tohyo2:B:inai@Tohyo2:A:inai@Tohyo2:C:inai@Tohyo2:X:inaiX:4C:4B:4A:4
+
+見方
+<img width="961" alt="スクリーンショット 2020-10-13 9 13 20" src="https://user-images.githubusercontent.com/32958889/95801239-b0c39400-0d34-11eb-9e14-e19271650582.png">
+
+
+
+
 
 このファイルをダウンロードすると、被験者が選んだ選択肢がわかる (データ分析用)
 
@@ -40,7 +50,7 @@ http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
 次の画面。被験者の役割が表示される。<br>
 <img width="670" alt="スクリーンショット 2020-10-02 2 03 15" src="https://user-images.githubusercontent.com/32958889/94840490-73692780-0453-11eb-89e7-3abcc118390d.png">
 <br>
-全員が[確認しました]を押すと次の画面に遷移する。<br>
+①全員が[確認しました]を押すと次の画面に遷移する。<br>
 <img width="644" alt="スクリーンショット 2020-10-02 2 03 49" src="https://user-images.githubusercontent.com/32958889/94840613-a14e6c00-0453-11eb-8291-135e42080317.png">
 <br>
 [確認して議論を開始する]を押すと以下の画面に遷移する。「zoomに戻ってマイクとカメラをオンにして議論してください」という音声が流れる。この時点ではタイマーは起動しない。全員が[確認して議論を開始する]を押すとタイマーが起動する。<br>
@@ -53,12 +63,16 @@ http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
 音声が流れると、[確認して投票に移る]ボタンが表示される。<br>
 <img width="669" alt="スクリーンショット 2020-10-02 2 04 01" src="https://user-images.githubusercontent.com/32958889/94840625-aad7d400-0453-11eb-9d23-6535caae08af.png">
 <br>
-投票画面　全員が人狼がいないと言った場合はここで終わり<br>
+③投票画面　全員が人狼がいないと言った場合はここで終わり。一人でも人狼がいると言った場合は、誰が人狼かの投票に移る(④)。<br>
 <img width="669" alt="スクリーンショット 2020-10-02 2 04 06" src="https://user-images.githubusercontent.com/32958889/94840637-b0351e80-0453-11eb-9a10-7318272f2b71.png">
 <br>
 投票をしたあとで更新ボタンを押してしまった場合には以下のボタンが出る。<br>
 <img width="669" alt="スクリーンショット 2020-10-02 2 04 10" src="https://user-images.githubusercontent.com/32958889/94840642-b4f9d280-0453-11eb-8f83-c700259a2bdb.png">
 <br>
-結果発表(勝敗表示は作成中です)<br>
+結果発表(勝敗表示は作成中です)→更新しました1013<br>
 <img width="671" alt="スクリーンショット 2020-10-02 2 04 14" src="https://user-images.githubusercontent.com/32958889/94840657-b925f000-0453-11eb-87a6-b194193575f4.png">
 <br>
+全員が次へを押したら、「次の実験へ進みます」という読み上げのあと、3秒後に次の実験へ進む(⑤)。
+
+
+
