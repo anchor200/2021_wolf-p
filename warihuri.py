@@ -82,8 +82,13 @@ presentation_otsu = u"""
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
+<<<<<<< HEAD
 实验就到此为止。 谢谢你的帮助。<br>
 <strong>此后，按照实验者的指示进行。</strong>
+=======
+実験は以上です。お疲れさまでした。<br>
+<strong>以後は実験者の指示に従ってください。</strong>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 <textarea class="textlines" name="Role" readonly>%s</textarea>
 

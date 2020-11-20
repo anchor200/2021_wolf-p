@@ -102,9 +102,15 @@ presentation = u"""
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
+<<<<<<< HEAD
 <p id="iruka">你认为在村⼦⾥有狼⼈存在吗？ </p><br>
 %s
 <p id="uketsuke">我们接收到了你的投票。在其他⼈也都投票完成之后，下⾯会出现「下⼀步」的按钮。按钮出现之 后，请点击按钮。</p><br>
+=======
+<p id="iruka">この村には人狼がいると思いますか？</p><br>
+%s
+<p id="uketsuke">投票を受け付けました。他の人が投票を終えると、この下に「次へ」ボタンが出ます。出たらクリックしてください。</p><br>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 <form method="GET" action="./Tohyo2.py">
 <input id="iru" type="button" value="有" onclick="OnButtonClick_iru();"/>
@@ -201,7 +207,11 @@ memid = form.getvalue('Keika', '').split("#")[0]
 path = form.getvalue('Keika', '').split("#")[-1]
 jikken = ""
 if memid == "X":
+<<<<<<< HEAD
     jikken = "実験者にだけ見えている文章：実験者の投票は結果に影響しません。適当に押してください<br>如果实验者已经更新，请重启会话。 如果您已经更新，请重新启动会话。"
+=======
+    jikken = "実験者にだけ見えている文章：実験者の投票は結果に影響しません。適当に押してください"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 with open(path) as f:
     s = f.read()
 if ("Tohyo2:A" in s and memid == "A") or ("Tohyo2:B" in s and memid == "B") or ("Tohyo2:C" in s and memid == "C") or ("Tohyo2:X" in s and memid == "X"):

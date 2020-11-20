@@ -1,0 +1,11 @@
+room,trial,A,B,C
+testroom,0,murabito,jinro,yogen
+testroom,1,murabito,yogen,murabito
+testroom,2,murabito,murabito,yogen
+testroom,3,yogen,murabito,jinro
+testroom,4,jinro,murabito,murabito
+myroom,0,murabito,jinro,murabito
+myroom,1,yogen,murabito,jinro
+myroom,2,murabito,murabito,yogen
+myroom,3,murabito,yogen,murabito
+myroom,4,murabito,murabito,yogen

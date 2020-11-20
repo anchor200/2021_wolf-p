@@ -42,7 +42,11 @@ presentation = u"""
                     document.getElementById( "tsugi" ).play();
                 }
                 setTimeout(function(){
+<<<<<<< HEAD
                     location.href="http://roboquestion.s3.coreserver.jp/jinro_cn/warihuri.py?room=%s&trial=%s&member=%s";
+=======
+                    location.href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=%s&trial=%s&member=%s";
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
                 }, 3*1000);
             } 
             else {
@@ -69,11 +73,19 @@ presentation = u"""
 <audio id = "tsugi" src="./tsugi.mp3"></audio>
 %s<br><br>
 
+<<<<<<< HEAD
 点击了「进⾏下⼀次实验」按钮后，在其他⼈也操作完成前请保持等待。<br>
 <button id="susumu" type="button" onclick="OnButtonClick();"/>进⾏下⼀次实验</button>
 
 <br><br>
 <strong>请不要关闭⻚⾯。</strong>
+=======
+「次の実験へ進む」を押した後は、他の人が操作を終えるまでそのままお待ち下さい。<br>
+<button id="susumu" type="button" onclick="OnButtonClick();"/>次の実験へ進む</button>
+
+<br><br>
+<strong>このページは閉じないでください。</strong>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 </body>
@@ -116,6 +128,7 @@ with open("warihuri.csv") as f:
             Bwari = wari(row[3])
             Cwari = wari(row[4])
 
+<<<<<<< HEAD
 kekka = "村庄被破坏。"
 
 if Awari == "狼人":
@@ -133,6 +146,25 @@ elif Cwari == "狼人":
         kekka = "村⺠胜利了。"
     else:
         kekka = "狼人胜利了。"
+=======
+kekka = "村は滅びました。"
+
+if Awari == "人狼":
+    if Btou == "A" and Ctou == "A":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+elif Bwari == "人狼":
+    if Ctou == "B" and Atou == "B":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+elif Cwari == "人狼":
+    if Atou == "C" and Btou == "C":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 room = path.split("./log/")[1].split(".")[0][:-1]
 

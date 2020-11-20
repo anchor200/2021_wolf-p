@@ -103,9 +103,15 @@ presentation_SomeJinro = u"""
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
+<<<<<<< HEAD
 <p id="dareka">你认为谁是狼⼈？</p><br>
 %s
 <p id="uketsuke">我们接收到了你的投票。在其他⼈也都投票完成之后，下⾯会出现「下⼀步」的按钮。按钮出现之 后，请点击按钮。</p><br>
+=======
+<p id="dareka">誰が人狼だと思いますか？</p><br>
+%s
+<p id="uketsuke">投票を受け付けました。他の人が投票を終えると、この下に「次へ」ボタンが出ます。出たらクリックしてください。</p><br>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 <form method="GET" action="./owari.py">
 <input id="Jin1" type="button" value="%s" onclick="OnButtonClick_Jin1();"/>
@@ -223,7 +229,11 @@ presentation_NoJinro = u"""
                     document.getElementById( "tsugi" ).play();
                 }
                 setTimeout(function(){
+<<<<<<< HEAD
                     location.href="http://roboquestion.s3.coreserver.jp/jinro_cn/warihuri.py?room=%s&trial=%s&member=%s";
+=======
+                    location.href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=%s&trial=%s&member=%s";
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
                 }, 3*1000);
             } 
             else {
@@ -252,12 +262,21 @@ presentation_NoJinro = u"""
 <br>
 
 
+<<<<<<< HEAD
 点击了「进⾏下⼀次实验」按钮后，在其他⼈也操作完成前请保持等待。<br>
 <button id="susumu" type="button" onclick="OnButtonClick();"/>进⾏下⼀次实验</button>
 
 
 <br><br>
 <strong>请不要关闭⻚⾯。</strong>
+=======
+「次の実験へ進む」を押した後は、他の人が操作を終えるまでそのままお待ち下さい。<br>
+<button id="susumu" type="button" onclick="OnButtonClick();"/>次の実験へ進む</button>
+
+
+<br><br>
+<strong>このページは閉じないでください。</strong>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 </body>
@@ -300,10 +319,17 @@ if "Tohyo2:A:inai" in s and "Tohyo2:B:inai" in s and "Tohyo2:C:inai" in s:
                 Bwari = wari(row[3])
                 Cwari = wari(row[4])
 
+<<<<<<< HEAD
     kekka = "村民胜利了"
     if Awari == "狼人" or Bwari == "狼人" or Cwari == "狼人":
         # kekka = "村庄被破坏"
         kekka = "狼⼈胜利了"
+=======
+    kekka = "村人の勝利です。"
+    if Awari == "人狼" or Bwari == "人狼" or Cwari == "人狼":
+        # kekka = "村は滅びました。"
+        kekka = "人狼の勝利です。"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 
     with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:

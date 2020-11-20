@@ -10,6 +10,7 @@ import csv
 
 def wari(str):
     if str == "murabito":
+<<<<<<< HEAD
         return "村民"
     elif str == "jinro":
         return "狼人"
@@ -18,6 +19,17 @@ def wari(str):
     else:
         return "エラーを起こせし者"
 
+=======
+        return "村人"
+    elif str == "jinro":
+        return "人狼"
+    elif str == "yogen":
+        return "予言者"
+    else:
+        return "エラーを起こせし者"
+
+
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
@@ -155,12 +167,21 @@ presentation = u"""
 <audio id = "hajime" src="./hajime.mp3"></audio>
 <audio id = "naka" src="./tochu.mp3"></audio>
 <audio id = "owari" src="./saigo.mp3"></audio>
+<<<<<<< HEAD
 <br><font color="#0000ff" size="6">你是%s。<br></font>%s<br><br>
 <p id="inst1">请按下下⾯的按钮进⾏讨论。<br>
 
 限制时间为三分钟。<br><br></p>
 <p id="inst2">请在听到语⾳播报后，返回zoom界⾯，开始讨论。<br></p>
 <p id="inst3">点击下面的按钮，继续进行投票。<br></p>
+=======
+<br><font color="#0000ff" size="6">あなたは%sです。<br></font>%s<br><br>
+<p id="inst1">下のボタンを押して議論に進んでください。<br>
+
+制限時間は三分です。<br><br></p>
+<p id="inst2">音声アナウンスが流れたら、zoomの画面に移動して議論を開始してください。<br></p>
+<p id="inst3">下のボタンを押して投票に進んでください。<br></p>
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 <button id="hajimeBut" type="button" onclick="OnButtonClick();"/>%s</button>
 
 <form method="GET" action="./Tohyo1.py">
@@ -188,12 +209,20 @@ with open(path, mode='a') as f:
     f.write(memid + ":0")
 with open(path) as f:
     s = f.read()
+<<<<<<< HEAD
 buttonstr = "确定开始讨论（请务必按下这个按钮）<br>在按下按钮后，请等待语⾳播报。 请在听到语⾳播报后，进⼊ZOOM界⾯，开始讨论。 "
+=======
+buttonstr = "確認して議論を開始する(このボタンを必ず押してください。<br>ボタンを押した後は音声アナウンスがあるまでお待ち下さい。音声アナウンスが流れたら、zoomの画面に移動して議論を開始してください)"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 if memid == "X":
     buttonstr = "実験者専用ボタン：確認して議論を開始する(このボタンを必ず押してください)"
 
 if "A:1" in s and "B:1" in s and "C:1" in s and "X:1" in s:
+<<<<<<< HEAD
     buttonstr = "由于操作错误，页面已被刷新。 如果讨论还没有结束，请务必按这个按钮返回讨论。<br>如果实验者已经更新，请重启会话。"
+=======
+    buttonstr = "操作ミスによりページが更新されました。議論がまだ終わっていない場合はこのボタンを必ず押して議論に戻ってください。<br>実験者が更新してしまった場合はセッションをリスタートしてください。"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 
 while True:
@@ -223,11 +252,16 @@ with open("warihuri.csv") as f:
             Bwari = wari(row[3])
             Cwari = wari(row[4])
 yogen = ""
+<<<<<<< HEAD
 if role == "yogen":
+=======
+if role == "予言者":
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
     random.seed(path.split("./log/")[1].split(".")[0])
     co = random.choice([0, 1])
     if co:
         if memid == "A":
+<<<<<<< HEAD
             yogen = "你是预⾔家，你的占⼘结果，B是" + Bwari + "。"
         if memid == "B":
             yogen = "你是预⾔家，你的占⼘结果，C是" + Cwari + "。"
@@ -240,6 +274,20 @@ if role == "yogen":
             yogen = "你是预⾔家，你的占⼘结果，A是" + Awari + "。"
         if memid == "C":
             yogen = "你是预⾔家，你的占⼘结果，B是" + Bwari + "。"
+=======
+            yogen = "あなたの占いの結果、Bさんは" + Bwari + "だとわかりました。"
+        if memid == "B":
+            yogen = "あなたの占いの結果、Cさんは" + Cwari + "だとわかりました。"
+        if memid == "C":
+            yogen = "あなたの占いの結果、Aさんは" + Awari + "だとわかりました。"
+    else:
+        if memid == "A":
+            yogen = "あなたの占いの結果、Cさんは" + Cwari + "だとわかりました。"
+        if memid == "B":
+            yogen = "あなたの占いの結果、Aさんは" + Awari + "だとわかりました。"
+        if memid == "C":
+            yogen = "あなたの占いの結果、Bさんは" + Bwari + "だとわかりました。"
+>>>>>>> 57d794743891e1d34848594caa378c7e48308e75
 
 
 #print("Content-type: text/html;charset=utf-8\n")
