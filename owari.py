@@ -27,22 +27,54 @@ presentation = u"""
     height: 0px;           /* 高さ */
 }
 </style>
+<script>
+    function machi() {
+        
+        $(function(){
+          $.ajax({
+            url: 'wait2.py',
+            type: 'post',
+            data: '%s#%s#machi'
+          }).done(function(data){
+            console.log(data);
+            if (data.match(/susumu/)){
+                if ('%s' == 'X'){
+                    document.getElementById( "tsugi" ).play();
+                }
+                setTimeout(function(){
+                    location.href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=%s&trial=%s&member=%s";
+                }, 3*1000);
+            } 
+            else {
+                console.log("calling again");
+                machi();
+                console.log("called");
+            }
+
+          });
+        });
+        
+        return false;
+    }
+    
+    function OnButtonClick(){
+        
+        susumu.style.visibility ="hidden";
+        machi(); 
+    }
+</script>
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
-Aさんは%sさんが人狼だと言いました。<br>
-Bさんは%sさんが人狼だと言いました。<br>
-Cさんは%sさんが人狼だと言いました。<br><br>
+<audio id = "tsugi" src="./tsugi.mp3"></audio>
+%s<br><br>
 
-Aさんは%sです。<br>
-Bさんは%sです。<br>
-Cさんは%sです。<br><br>
-
-
-<a href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=%s&member=%s">次の実験へ進む</a>
+「次の実験へ進む」を押した後は、他の人が操作を終えるまでそのままお待ち下さい。<br>
+<button id="susumu" type="button" onclick="OnButtonClick();"/>次の実験へ進む</button>
 
 <br><br>
 <strong>このページは閉じないでください。</strong>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 </body>
 </html>"""
@@ -84,12 +116,32 @@ with open("warihuri.csv") as f:
             Bwari = wari(row[3])
             Cwari = wari(row[4])
 
+kekka = "村は滅びました。"
+
+if Awari == "人狼":
+    if Btou == "A" and Ctou == "A":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+elif Bwari == "人狼":
+    if Ctou == "B" and Atou == "B":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+elif Cwari == "人狼":
+    if Atou == "C" and Btou == "C":
+        kekka = "村人の勝利です。"
+    else:
+        kekka = "人狼の勝利です。"
+
+room = path.split("./log/")[1].split(".")[0][:-1]
 
 with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
     f.write("|" + s + "|")
 
 sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-sys.stdout.write(presentation % (Atou, Btou, Ctou, Awari, Bwari, Cwari, str(int(exp_num) + 1), memid, form.getvalue('Keika', '')))
+# sys.stdout.write(presentation % (memid, path, memid, room, str(int(exp_num) + 1), memid, Atou, Btou, Ctou, Awari, Bwari, Cwari, form.getvalue('Keika', '')))
+sys.stdout.write(presentation % (memid, path, memid, room, str(int(exp_num) + 1), memid, kekka, form.getvalue('Keika', '')))
 #sys.stdout.write(presentation)
 #sys.stdout.write(s + path)
 

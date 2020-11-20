@@ -28,7 +28,7 @@ http://roboquestion.s3.coreserver.jp/jinro/warihuri.csv
 
 
 ## 実験ごとのログ
-http://roboquestion.s3.coreserver.jp/jinro/testroom0.txt
+http://roboquestion.s3.coreserver.jp/jinro/log/testroom0.txt
 <br>jinro/以下は、[グループID][実験ID].txt
 
 このファイルをダウンロードすると、被験者が選んだ選択肢がわかる (データ分析用)

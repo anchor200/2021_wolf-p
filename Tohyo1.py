@@ -103,6 +103,7 @@ presentation = u"""
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
 <p id="iruka">この村には人狼がいると思いますか？</p><br>
+%s
 <p id="uketsuke">投票を受け付けました。他の人が投票を終えると、この下に「次へ」ボタンが出ます。出たらクリックしてください。</p><br>
 
 <form method="GET" action="./Tohyo2.py">
@@ -198,9 +199,12 @@ form = cgi.FieldStorage()
 
 memid = form.getvalue('Keika', '').split("#")[0]
 path = form.getvalue('Keika', '').split("#")[-1]
+jikken = ""
+if memid == "X":
+    jikken = "実験者にだけ見えている文章：実験者の投票は結果に影響しません。適当に押してください"
 with open(path) as f:
     s = f.read()
-if ("Tohyo2:A" in s and memid == "A") or ("Tohyo2:B" in s and memid == "B") or ("Tohyo2:C" in s and memid == "C"):
+if ("Tohyo2:A" in s and memid == "A") or ("Tohyo2:B" in s and memid == "B") or ("Tohyo2:C" in s and memid == "C") or ("Tohyo2:X" in s and memid == "X"):
     # print("Content-type: text/html;charset=utf-8\n")
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
     sys.stdout.write(presentation_uketsuketa % (memid, path, form.getvalue('Keika', '')))
@@ -208,5 +212,5 @@ if ("Tohyo2:A" in s and memid == "A") or ("Tohyo2:B" in s and memid == "B") or (
 else:
     #print("Content-type: text/html;charset=utf-8\n")
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-    sys.stdout.write(presentation % (memid, path, memid, path, form.getvalue('Keika', '')))
+    sys.stdout.write(presentation % (memid, path, memid, path, jikken, form.getvalue('Keika', '')))
 
