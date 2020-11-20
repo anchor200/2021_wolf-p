@@ -27,33 +27,65 @@ presentation = u"""
     height: 0px;           /* 高さ */
 }
 </style>
+<script>
+    function machi() {
+        
+        $(function(){
+          $.ajax({
+            url: 'wait2.py',
+            type: 'post',
+            data: '%s#%s#machi'
+          }).done(function(data){
+            console.log(data);
+            if (data.match(/susumu/)){
+                if ('%s' == 'X'){
+                    document.getElementById( "tsugi" ).play();
+                }
+                setTimeout(function(){
+                    location.href="http://roboquestion.s3.coreserver.jp/jinro_cn/warihuri.py?room=%s&trial=%s&member=%s";
+                }, 3*1000);
+            } 
+            else {
+                console.log("calling again");
+                machi();
+                console.log("called");
+            }
+
+          });
+        });
+        
+        return false;
+    }
+    
+    function OnButtonClick(){
+        
+        susumu.style.visibility ="hidden";
+        machi(); 
+    }
+</script>
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
-Aさんは%sさんが人狼だと言いました。<br>
-Bさんは%sさんが人狼だと言いました。<br>
-Cさんは%sさんが人狼だと言いました。<br><br>
+<audio id = "tsugi" src="./tsugi.mp3"></audio>
+%s<br><br>
 
-Aさんは%sです。<br>
-Bさんは%sです。<br>
-Cさんは%sです。<br><br>
-
-
-<a href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=%s&member=%s">次の実験へ進む</a>
+点击了「进⾏下⼀次实验」按钮后，在其他⼈也操作完成前请保持等待。<br>
+<button id="susumu" type="button" onclick="OnButtonClick();"/>进⾏下⼀次实验</button>
 
 <br><br>
-<strong>このページは閉じないでください。</strong>
+<strong>请不要关闭⻚⾯。</strong>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 </body>
 </html>"""
 
 def wari(str):
     if str == "murabito":
-        return "村人"
+        return "村民"
     elif str == "jinro":
-        return "人狼"
+        return "狼人"
     elif str == "yogen":
-        return "予言者"
+        return "预⾔家"
     else:
         return "エラーを起こせし者"
 
@@ -84,12 +116,32 @@ with open("warihuri.csv") as f:
             Bwari = wari(row[3])
             Cwari = wari(row[4])
 
+kekka = "村庄被破坏。"
+
+if Awari == "狼人":
+    if Btou == "A" and Ctou == "A":
+        kekka = "村⺠胜利了。"
+    else:
+        kekka = "狼人胜利了。"
+elif Bwari == "狼人":
+    if Ctou == "B" and Atou == "B":
+        kekka = "村⺠胜利了。"
+    else:
+        kekka = "狼人胜利了。"
+elif Cwari == "狼人":
+    if Atou == "C" and Btou == "C":
+        kekka = "村⺠胜利了。"
+    else:
+        kekka = "狼人胜利了。"
+
+room = path.split("./log/")[1].split(".")[0][:-1]
 
 with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
     f.write("|" + s + "|")
 
 sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-sys.stdout.write(presentation % (Atou, Btou, Ctou, Awari, Bwari, Cwari, str(int(exp_num) + 1), memid, form.getvalue('Keika', '')))
+# sys.stdout.write(presentation % (memid, path, memid, room, str(int(exp_num) + 1), memid, Atou, Btou, Ctou, Awari, Bwari, Cwari, form.getvalue('Keika', '')))
+sys.stdout.write(presentation % (memid, path, memid, room, str(int(exp_num) + 1), memid, kekka, form.getvalue('Keika', '')))
 #sys.stdout.write(presentation)
 #sys.stdout.write(s + path)
 

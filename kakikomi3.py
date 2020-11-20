@@ -29,7 +29,7 @@ while True:
     t += 1
     with open(recieve.split('#')[1]) as f:
         s = f.read()
-    if "Tohyo3:A" in s and "Tohyo3:B" in s and "Tohyo3:C" in s:
+    if "Tohyo3:A" in s and "Tohyo3:B" in s and "Tohyo3:C" in s and "Tohyo3:X" in s:
         break
     time.sleep(0.2)
 

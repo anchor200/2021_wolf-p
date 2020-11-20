@@ -6,6 +6,18 @@ import sys
 import io
 import cgi
 import time
+import csv
+
+def wari(str):
+    if str == "murabito":
+        return "村民"
+    elif str == "jinro":
+        return "狼人"
+    elif str == "yogen":
+        return "预⾔家"
+    else:
+        return "エラーを起こせし者"
+
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
@@ -14,7 +26,7 @@ dt_now = datetime.now()
 presentation = u"""
 <html>
 <head>
-<title>ボタンを押して議論を開始してください。</title>
+<title>请按下下⾯的按钮进⾏讨论。</title>
 <style>
 .textlines {
     border: 0px solid #fff;  /* 枠線 */
@@ -83,7 +95,7 @@ presentation = u"""
             console.log(data);
             if (data.match(/hajimaru/)){
             
-            
+                document.getElementById( "hajime" ).play();
                 var huga = 1;
                 var hoge = setInterval(function() {
                     console.log(huga);
@@ -125,7 +137,7 @@ presentation = u"""
     }
     
     function OnButtonClick(){
-        document.getElementById( "hajime" ).play();
+        
         hajimeBut.style.visibility ="hidden";
         inst1.style.visibility ="hidden";
         inst2.style.visibility ="visible";
@@ -140,20 +152,22 @@ presentation = u"""
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
 
-<audio id = "hajime" src="./kaishi.mp3"></audio>
-<audio id = "naka" src="./naka.mp3"></audio>
-<audio id = "owari" src="./owari.mp3"></audio>
+<audio id = "hajime" src="./hajime.mp3"></audio>
+<audio id = "naka" src="./tochu.mp3"></audio>
+<audio id = "owari" src="./saigo.mp3"></audio>
+<br><font color="#0000ff" size="6">你是%s。<br></font>%s<br><br>
+<p id="inst1">请按下下⾯的按钮进⾏讨论。<br>
 
-<p id="inst1">あなたは%sです。<br><br>下のボタンを押して議論に進んでください。<br>
-制限時間は三分です。<br><br></p>
-<p id="inst2">今すぐZoomに戻って議論を行ってください。<br></p>
-<p id="inst3">下のボタンを押して投票に進んでください。<br></p>
-<input id="hajimeBut" type="button" value="確認して議論を開始する(このボタンを必ず押してください)" onclick="OnButtonClick();"/>
+限制时间为三分钟。<br><br></p>
+<p id="inst2">请在听到语⾳播报后，返回zoom界⾯，开始讨论。<br></p>
+<p id="inst3">点击下面的按钮，继续进行投票。<br></p>
+<button id="hajimeBut" type="button" onclick="OnButtonClick();"/>%s</button>
 
 <form method="GET" action="./Tohyo1.py">
-<input id="owariBut" type="submit" value="確認して投票に移る"/><br>
-<strong>このページを閉じたり、戻るや進むを押さないでください。</strong><br>
-投票画面から戻るを押してこのページに来てしまった場合は、上のボタンは押さず、ブラウザの進むを押して投票画面に戻り、ページを更新してください。
+<input id="owariBut" type="submit" value="确定进⼊投票⻚⾯ "/><br>
+<strong>请不要关闭此⽹⻚，也不要点击前进或后退按钮。 </strong><br>
+如果是从投票⻚⾯按了返回键回到了这个⻚⾯的情况，请不要按上述确定的按钮，请点击浏览器的 前进键，返回投票⻚⾯，更新⽹⻚。 
+
 
 <script type="text/javascript">
 document.getElementById("owariBut").style.visibility ="hidden";
@@ -172,17 +186,64 @@ path = form.getvalue('Keika', '').split("#")[-1]
 role = form.getvalue('Role', '')
 with open(path, mode='a') as f:
     f.write(memid + ":0")
+with open(path) as f:
+    s = f.read()
+buttonstr = "确定开始讨论（请务必按下这个按钮）<br>在按下按钮后，请等待语⾳播报。 请在听到语⾳播报后，进⼊ZOOM界⾯，开始讨论。 "
+if memid == "X":
+    buttonstr = "実験者専用ボタン：確認して議論を開始する(このボタンを必ず押してください)"
+
+if "A:1" in s and "B:1" in s and "C:1" in s and "X:1" in s:
+    buttonstr = "由于操作错误，页面已被刷新。 如果讨论还没有结束，请务必按这个按钮返回讨论。<br>如果实验者已经更新，请重启会话。"
 
 
 while True:
     with open(path) as f:
         s = f.read()
-    if "A:0" in s and "B:0" in s and "C:0" in s:
+    if "A:0" in s and "B:0" in s and "C:0" in s and "X:0" in s:
         break
     time.sleep(0.2)
+
+if memid == "X":
+    while True:
+        with open(path) as f:
+            s = f.read()
+        if "A:1" in s and "B:1" in s and "C:1" in s:
+            break
+        time.sleep(0.2)
+
+
+
+Awari = ""
+Bwari = ""
+Cwari = ""
+with open("warihuri.csv") as f:
+    for row in csv.reader(f):
+        if row[0] + row[1] == path.split("./log/")[1].split(".")[0]:
+            Awari = wari(row[2])
+            Bwari = wari(row[3])
+            Cwari = wari(row[4])
+yogen = ""
+if role == "yogen":
+    random.seed(path.split("./log/")[1].split(".")[0])
+    co = random.choice([0, 1])
+    if co:
+        if memid == "A":
+            yogen = "你是预⾔家，你的占⼘结果，B是" + Bwari + "。"
+        if memid == "B":
+            yogen = "你是预⾔家，你的占⼘结果，C是" + Cwari + "。"
+        if memid == "C":
+            yogen = "你是预⾔家，你的占⼘结果，A是" + Awari + "。"
+    else:
+        if memid == "A":
+            yogen = "你是预⾔家，你的占⼘结果，C是" + Cwari + "。"
+        if memid == "B":
+            yogen = "你是预⾔家，你的占⼘结果，A是" + Awari + "。"
+        if memid == "C":
+            yogen = "你是预⾔家，你的占⼘结果，B是" + Bwari + "。"
+
 
 #print("Content-type: text/html;charset=utf-8\n")
 sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
 #sys.stdout.write(presentation)
-sys.stdout.write(presentation % (memid, path, memid, path, memid, path, role, form.getvalue('Keika', '')))
+sys.stdout.write(presentation % (memid, path, memid, path, memid, path, role, yogen, buttonstr, form.getvalue('Keika', '')))
 

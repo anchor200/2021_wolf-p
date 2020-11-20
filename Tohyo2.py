@@ -103,17 +103,18 @@ presentation_SomeJinro = u"""
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
-<p id="dareka">誰が人狼だと思いますか？</p><br>
-<p id="uketsuke">投票を受け付けました。他の人が投票を終えると、この下に「次へ」ボタンが出ます。出たらクリックしてください。</p><br>
+<p id="dareka">你认为谁是狼⼈？</p><br>
+%s
+<p id="uketsuke">我们接收到了你的投票。在其他⼈也都投票完成之后，下⾯会出现「下⼀步」的按钮。按钮出现之 后，请点击按钮。</p><br>
 
 <form method="GET" action="./owari.py">
 <input id="Jin1" type="button" value="%s" onclick="OnButtonClick_Jin1();"/>
 <input id="Jin2" type="button" value="%s" onclick="OnButtonClick_Jin2();"/>
 <br>
-<input id="tsugi" type="submit" value="次へ"/><br>
+<input id="tsugi" type="submit" value="下⼀步"/><br>
 <br><br>
-<strong>このページは閉じないでください。一度投票した後で戻るボタンを押してしまった場合は、ページを更新してください。</strong><br>
-戻るを押してこのページに来てしまった場合は、上のボタンは押さず、ブラウザの進むを押してもとの画面に戻り、ページを更新してください。
+<strong>请不要关闭这个⻚⾯。如果你在投票后按了返回键，请更新⻚⾯。</strong><br>
+如果你是按 "返回 "键来到了这个⻚⾯，请不要按上⾯的按钮，按浏览器的 "前进 “键返回原界⾯， 刷新⻚⾯。
 <script type="text/javascript">
 document.getElementById("tsugi").style.visibility ="hidden";
 document.getElementById("uketsuke").style.visibility ="hidden";
@@ -172,15 +173,15 @@ presentation_uketsuketa = u"""
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
-<p id="dareka">あなたはすでに投票しています。</p><br>
-<p id="uketsuke">投票を受け付けました。他の人が投票を終えると、この下に「次へ」ボタンが出ます。出たらクリックしてください。</p><br>
-<input id="koushingo" type="button" value="ページを更新してしまった場合はこのボタンを押してください。" onclick="OnButtonKoushin();"/>
+<p id="dareka">你已经投了票。</p><br>
+<p id="uketsuke">我们接收到了你的投票。在其他⼈也都投票完成之后，下⾯会出现「下⼀步」的按钮。按钮出现之 后，请点击按钮。。</p><br>
+<input id="koushingo" type="button" value="如果你已经刷新了页面，请按这个按钮。" onclick="OnButtonKoushin();"/>
 
 <form method="GET" action="./owari.py">
 <br>
-<input id="tsugi" type="submit" value="次へ"/><br>
+<input id="tsugi" type="submit" value="下⼀步"/><br>
 <br><br>
-<strong>このページは閉じないでください。</strong>
+<strong>请不要关闭⻚⾯。</strong>
 <script type="text/javascript">
 document.getElementById("tsugi").style.visibility ="hidden";
 document.getElementById("uketsuke").style.visibility ="visible";
@@ -207,21 +208,57 @@ presentation_NoJinro = u"""
     height: 0px;           /* 高さ */
 }
 </style>
+<script>
+    function machi() {
+        
+        $(function(){
+          $.ajax({
+            url: 'wait2.py',
+            type: 'post',
+            data: '%s#%s#machi'
+          }).done(function(data){
+            console.log(data);
+            if (data.match(/susumu/)){
+                if ('%s' == 'X'){
+                    document.getElementById( "tsugi" ).play();
+                }
+                setTimeout(function(){
+                    location.href="http://roboquestion.s3.coreserver.jp/jinro_cn/warihuri.py?room=%s&trial=%s&member=%s";
+                }, 3*1000);
+            } 
+            else {
+                console.log("calling again");
+                machi();
+                console.log("called");
+            }
+
+          });
+        });
+        
+        return false;
+    }
+    
+    function OnButtonClick(){
+        
+        susumu.style.visibility ="hidden";
+        machi(); 
+    }
+</script>
 </head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /> </head>
 <body>
-全会一致で人狼がいないことになりました<br>
+<audio id = "tsugi" src="./tsugi.mp3"></audio>
+%s<br>
 <br>
 
-Aさんは%sです。<br>
-Bさんは%sです。<br>
-Cさんは%sです。<br><br>
 
+点击了「进⾏下⼀次实验」按钮后，在其他⼈也操作完成前请保持等待。<br>
+<button id="susumu" type="button" onclick="OnButtonClick();"/>进⾏下⼀次实验</button>
 
-<a href="http://roboquestion.s3.coreserver.jp/jinro/warihuri.py?room=testroom&trial=%s&member=%s">次の実験へ進む</a>
 
 <br><br>
-<strong>このページは閉じないでください。</strong>
+<strong>请不要关闭⻚⾯。</strong>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <textarea class="textlines" name="Keika" readonly>%s</textarea>
 </body>
 </html>"""
@@ -243,6 +280,9 @@ path = form.getvalue('Keika', '').split("#")[-1]
 with open(path) as f:
     s = f.read()
 
+jikken = ""
+if memid == "X":
+    jikken = "実験者にだけ見えている文章：実験者の投票は結果に影響しません。適当に押してください"
 
 if "Tohyo2:A:inai" in s and "Tohyo2:B:inai" in s and "Tohyo2:C:inai" in s:
     presentation = presentation_NoJinro
@@ -260,10 +300,17 @@ if "Tohyo2:A:inai" in s and "Tohyo2:B:inai" in s and "Tohyo2:C:inai" in s:
                 Bwari = wari(row[3])
                 Cwari = wari(row[4])
 
+    kekka = "村民胜利了"
+    if Awari == "狼人" or Bwari == "狼人" or Cwari == "狼人":
+        # kekka = "村庄被破坏"
+        kekka = "狼⼈胜利了"
+
+
     with open("./log/backup/" + dt_now.isoformat() + path.split("./log/")[1].split(".")[0] + ".txt", mode='a') as f:
         f.write("|" + s + "|")
+    room = path.split("./log/")[1].split(".")[0][:-1]
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-    sys.stdout.write(presentation % (Awari, Bwari, Cwari, str(int(exp_num) + 1), memid, form.getvalue('Keika', '')))
+    sys.stdout.write(presentation % (memid, path, memid, room, str(int(exp_num) + 1), memid, kekka, form.getvalue('Keika', '')))
 elif ("Tohyo3:A" in s and memid == "A") or ("Tohyo3:B" in s and memid == "B") or ("Tohyo3:C" in s and memid == "C"):
     presentation = presentation_uketsuketa
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
@@ -291,7 +338,7 @@ else:
         pp2 = "Jinro=B"
 
     sys.stdout.write('Content-type: text/html; charset=UTF-8\n\n')
-    sys.stdout.write(presentation % (memid, path, pp1, memid, path, pp2, p1, p2, form.getvalue('Keika', '')))
+    sys.stdout.write(presentation % (memid, path, pp1, memid, path, pp2, jikken, p1, p2, form.getvalue('Keika', '')))
 
 
 
